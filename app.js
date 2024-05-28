@@ -13,6 +13,6 @@ const imgRoutes = require("./src/routes/imgRoutes");
 
 app.use(imgRoutes);
 
-app.listen(3000, () => {
+app.listen(3002, () => {
   console.log("That's Ok!");
 });
