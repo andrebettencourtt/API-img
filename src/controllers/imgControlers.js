@@ -32,7 +32,7 @@ const upload = multer({ storage: storage });
 const fs = require("fs");
 
 exports.image = (req, res) => {
-  fs.readdir("imagens/", (err, files) => {
+  fs.readdir("assets/img/", (err, files) => {
     if (err) {
       return res.status(500).json({ msg: "Erro ao listar nomes das img" });
     }
@@ -50,6 +50,6 @@ const path = require("path");
 
 exports.imageName = (req, res) => {
   const imageNome = req.params.imageName;
-  const imagePath = path.join(__dirname, "imagens", imageNome);
+  const imagePath = path.join(__dirname, "..", "..", "assets", "img", imageNome);
   res.sendFile(imagePath);
 };
