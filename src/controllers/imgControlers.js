@@ -1,18 +1,17 @@
-//Utilização de API
-const express = require("express");
 //Formulario de Imagem
 const multer = require("multer");
 //Salvar a img
 const sharp = require("sharp");
-//Comunicação entre beckend e front
-const cors = require("cors");
+const fs = require("fs");
+const path = require("path");
 
 //Configuração do multer -> armazenar arquivo
 const storage = multer.memoryStorage();
 //const de upload
 const upload = multer({ storage: storage });
 
-(exports.upload = upload.single("image")),
+exports.upload = [
+  upload.single("image"),
   async (req, res) => {
     try {
       //Salvar img no disco
@@ -27,9 +26,8 @@ const upload = multer({ storage: storage });
       console.error("Errorrrr", error);
       return res.status(500).json({ msg: "Ocorreuu um erro interno" });
     }
-  };
-
-const fs = require("fs");
+  },
+];
 
 exports.image = (req, res) => {
   fs.readdir("assets/img/", (err, files) => {
@@ -46,10 +44,15 @@ exports.image = (req, res) => {
   });
 };
 
-const path = require("path");
-
 exports.imageName = (req, res) => {
   const imageNome = req.params.imageName;
-  const imagePath = path.join(__dirname, "..", "..", "assets", "img", imageNome);
+  const imagePath = path.join(
+    __dirname,
+    "..",
+    "..",
+    "assets",
+    "img",
+    imageNome
+  );
   res.sendFile(imagePath);
 };
